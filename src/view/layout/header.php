@@ -43,15 +43,15 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.php">
+                <a class="nav-link" href="../index/index.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>หน้าหลัก</span>
                 </a>
-                <a class="nav-link" href="./src/view/notification/notificationMain.php">
+                <a class="nav-link" href="../notification/notificationMain.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>แจ้งเตือน</span>
                 </a>
-                <a class="nav-link" href="./src/view/news/newsMain.php">
+                <a class="nav-link" href="../news/newsMain.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>ข่าว</span>
                 </a>
@@ -68,10 +68,13 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="../component/index.php">
+                    <span>Index</span>
+                </a>
                 <a class="nav-link" href="../component/buttons.php">
                     <span>Buttons</span>
                 </a>
-                <a class="nav-link" href="../component/cards.html">
+                <a class="nav-link" href="../component/cards.php">
                     <span>Cards</span>
                 </a>
                     
@@ -79,16 +82,16 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link"  href="../component/utilities-color.html">
+                <a class="nav-link"  href="../component/utilities-color.php">
                     <span>Colors</span>
                 </a>
-                <a class="nav-link" href="../component/utilities-border.html">
+                <a class="nav-link" href="../component/utilities-border.php">
                     <span>Borders</span>
                 </a>
-                <a class="nav-link" href="../component/utilities-animation.html">
+                <a class="nav-link" href="../component/utilities-animation.php">
                     <span>Animations</span>
                 </a>
-                <a class="nav-link" href="../component/utilities-other.html">
+                <a class="nav-link" href="../component/utilities-other.php">
                     <span>Other</span>
                 </a>
             </li>
@@ -111,27 +114,27 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="../component/login.html">Login</a>
-                        <a class="collapse-item" href="../component/register.html">Register</a>
-                        <a class="collapse-item" href="../component/forgot-password.html">Forgot Password</a>
+                        <a class="collapse-item" href="../component/login.php">Login</a>
+                        <a class="collapse-item" href="../component/register.php">Register</a>
+                        <a class="collapse-item" href="../component/forgot-password.php">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="../component/404.html">404 Page</a>
-                        <a class="collapse-item" href="../component/blank.html">Blank Page</a>
+                        <a class="collapse-item" href="../component/404.php">404 Page</a>
+                        <a class="collapse-item" href="../component/blank.php">Blank Page</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="../charts.html">
+                <a class="nav-link" href="../component/charts.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="../tables.html">
+                <a class="nav-link" href="../component/tables.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
