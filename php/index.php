@@ -33,8 +33,8 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block " style="background-image: url('./etc/img/default.jpg');">
-                                
+                            <div class="col-lg-6 d-none d-lg-block ">
+                                <img src="./etc/img/login.jpg" class="img-fluid" alt="...">
                             </div>
                             <div class="col-lg-6 ">
                                 <div class="p-5">

@@ -44,7 +44,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="../index/index.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fa fa-home"></i>
                     <span>หน้าแรก</span></a>
             </li>
 
@@ -53,7 +53,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#userCollapse"
                     aria-expanded="true" aria-controls="userCollapse">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fa fa-user-o"></i>
                     <span>ส่วนผู้ใช้งาน</span>
                 </a>
                 <div id="userCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -67,12 +67,13 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notificationCollapse"
                     aria-expanded="true" aria-controls="notificationCollapse">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>ส่วนการแจ้งเตือน</span>
+                    <i class="fa fa-comment-o"></i>
+                    <span>ส่วนข่าวสาร</span>
                 </a>
                 <div id="notificationCollapse" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../notification/notificationMain.php">แจ้งเตือน</a>
+                        <a class="collapse-item" href="../notificationImportant/notificationImportant.php">แจ้งเตือนสำคัญ</a>
+                        <a class="collapse-item" href="../notification/notificationMain.php">แจ้งเตือนทั่วไป</a>
                         <a class="collapse-item" href="../news/newsMain.php">ข่าว</a>
                     </div>
                 </div>
@@ -80,7 +81,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+            <?php /*
             <!-- Heading -->
             <div class="sidebar-heading">
                 Interface
@@ -158,10 +159,11 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
+            */?>
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -270,14 +272,14 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">ใครก็ไม่รู้</span>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="../../../etc/img/default.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="../profile/profileMain.php">
+                                <a class="dropdown-item" href="../user/userProfile.php">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     ข้อมูลผู้ใช้งาน
                                 </a>

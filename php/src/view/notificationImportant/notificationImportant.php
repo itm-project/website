@@ -15,23 +15,23 @@
 <div class="container-fluid">
     <div class="form-row">
         <div class="form-group col-md-6 d-flex align-items-center">
-        <a href="../index/index.php" class="btn btn-success btn-icon-split  ">
+            <a href="../index/index.php" class="btn btn-success btn-icon-split  ">
                 <i class="fa fa-arrow-left btn-sm">
                 </i>
             </a>
-            <h3 class="m-0 font-weight-bold text-primary w-auto">&nbspการแจ้งเตือนทั่วไป</h3>
+            <h3 class="m-0 font-weight-bold text-danger w-auto">&nbspการแจ้งเตือนสำคัญ</h3>
         </div>
         <div class="form-group col-md d-flex align-items-center d-flex justify-content-end">
             <a href="../index/index.php"><span class="text">หน้าแรก</span></a>
             <?php echo  " / " ?>
-            <a href="./userMain.php"><span class="text">การแจ้งเตือนทั่วไป</span></a>
+            <a href="./userMain.php"><span class="text">การแจ้งเตือนสำคัญ</span></a>
         </div>
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="form-row">
                 <div class="form-group col-md-10 d-flex align-items-center">
-                    <h3 class="h3 mb-0 text-gray-800">การแจ้งเตือนทั่วไป</h3>
+                    <h3 class="h3 mb-0 text-danger">การแจ้งเตือนสำคัญ</h3>
                 </div>
                 <div class="form-group col-md d-flex align-items-center d-flex justify-content-end">
                     <a href="#" class="btn btn-primary align-left btn-icon-split" data-toggle="modal" data-target="#insertModal">
@@ -66,18 +66,17 @@
                                 ...
                             </th>
                             <th>
+                                <a href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">เปิด</span>
+                                </a>
                                 <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
                                     <span class="icon text-white-50">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </span>
                                     <span class="text">แก้ไข</span>
-
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">ลบ</span>
                                 </a>
                             </th>
                         </tr>
@@ -89,17 +88,17 @@
                                 ...
                             </th>
                             <th>
+                                <a href="#" class="btn btn-secondary btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fa fa-bell-slash-o" aria-hidden="true"></i>
+                                    </span>
+                                    <span class="text">ปิด</span>
+                                </a>
                                 <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
                                     <span class="icon text-white-50">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </span>
                                     <span class="text">แก้ไข</span>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">ลบ</span>
                                 </a>
                             </th>
                         </tr>
@@ -191,28 +190,5 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="deleteModal">
-    <div class="modal-dialog modal-dialog-top modal-md">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">ยืนยันการลบ</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-                <span type="text">ท่านต้องการลบผู้ข่าว .... ใช่หรือไม่</span>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">ยืนยัน</button>
-            </div>
-
-        </div>
-    </div>
-</div>
 <?php include_once("../layout/footer.php") ?>
