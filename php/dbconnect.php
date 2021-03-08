@@ -6,7 +6,7 @@ function connectDB(){
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
-
+	
 	// $servername = "localhost";
 	// $username = "root";
 	// $password = "";

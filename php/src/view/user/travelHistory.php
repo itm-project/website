@@ -1,4 +1,14 @@
-<?php include_once("../layout/header.php") ?>
+<?php 
+session_start();
+include_once("../layout/header.php");
+include_once("../../../dbconnect.php");
+include_once("./manage.php");
+
+$user = $_SESSION["user"];
+
+$travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
+
+?>
 
 <style>
     #outer {
@@ -54,12 +64,15 @@
                                 ลายละเอียดอื่นๆ
                             </th>
                         </tr>
+                        <?php 
+                            for($i=1;$i<sizeof($travelHistory);$i++){
+                        ?>
                         <tr>
                             <th>
-                                ...
+                                <?php echo $travelHistory[$i]["name"] ?>
                             </th>
                             <th>
-                                ...
+                                <?php echo $travelHistory[$i]["time"] ?>
                             </th>
                             <th>
                                 <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#myModal">
@@ -70,6 +83,7 @@
                                 </a>
                             </th>
                         </tr>
+                        <?php } ?>
 
                     </thead>
                 </table>

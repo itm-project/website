@@ -1,5 +1,19 @@
-<?php include_once("../layout/header.php") ?>
+<?php
+session_start();
+include_once("../layout/header.php");
+include_once("../../../dbconnect.php");
+include_once("./manage.php");
 
+if(isset($_POST["user_id"]))
+{
+    $user_id = $_POST["user_id"];
+    $user = selectData(getUser($user_id));
+    $_SESSION["user"] = $user;
+}
+
+$user = $_SESSION["user"];
+
+?>
 <style>
     #outer {
         width: 100%;
@@ -14,7 +28,7 @@
 <div class="container-fluid">
     <div class="form-row">
         <div class="form-group col-md-6 d-flex align-items-center">
-        <a href="../user/userMain.php" class="btn btn-success btn-icon-split  ">
+            <a href="../user/userMain.php" class="btn btn-success btn-icon-split  ">
                 <i class="fa fa-arrow-left btn-sm">
                 </i>
             </a>
@@ -43,89 +57,96 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="mb-3">
-                                <img src="../../../etc/img/default.jpg" class="rounded-circle border border-dark" width="100%"  alt="...">
+                                <img src="../../../etc/img/default.jpg" class="rounded-circle border border-dark" width="100%" alt="..." >
                             </div>
                             <div class="row">
                                 <div class="col d-flex justify-content-center">
-                                    <a href="./travelHistory.php" class="btn btn-success btn-icon-split">
-                                        <span class="icon text-white-50">
-                                            <i class="fa fa-car" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="text">ประวัติการเดินทาง</span>
-                                    </a>
+                                    <form class="group" method="POST" action='./travelHistory.php' id="user_id" name="user_id" value="<?php echo $user[1]["user_id"] ;?>" >
+                                        <a href="./travelHistory.php" class="btn btn-success btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-car" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="text">ประวัติการเดินทาง</span>
+                                        </a>
+                                    </form>
                                 </div>
                                 <div class="col d-flex justify-content-center">
-                                    <a href="./userProfileEdit.php" class="btn btn-warning btn-icon-split แ">
-                                        <span class="icon text-white-50">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="text">แก้ไขประวัติ</span>
-                                    </a>
+                                    <form class="group" method="POST" action='./userProfileEdit.php'>
+                                        <a href="./userProfileEdit.php" class="btn btn-warning btn-icon-split " id="user_id" name="user_id" value="<?php echo $user[1]["user_id"] ;?>">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="text">แก้ไขประวัติ</span>
+                                        </a>
+                                    </form>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <form class="row g-3 mb-6">
-                        <div class="col-md-6 mb-3">
-                            <label for="inputEmail4" class="form-label">อีเมล</label>
-                            <input type="email" class="form-control disable" id="inputEmail4" placeholder="example@." disabled="true">
+                        <div class="col-md-12 mb-3">
+                            <label for="text" class="form-label"><b>ข้อมูลส่วนตัว</b></label>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputPassword4" class="form-label">รหัสผ่าน</label>
-                            <input type="password" class="form-control" id="inputPassword4" disabled="true">
+                            <label for="text" class="form-label">ชื่อผู้ใช้งาน</label>
+                            <input type="text" class="form-control disable" id="inputEmail4" disabled="true" value="<?php echo $user[1]["username"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputEmail4" class="form-label">ชื่อ</label>
-                            <input type="email" class="form-control" id="inputEmail4" disabled="true">
+                            <label for="text" class="form-label">รหัสผ่าน</label>
+                            <input type="text" class="form-control" id="inputPassword4" disabled="true" value="<?php echo $user[1]["password"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputPassword4" class="form-label">นามสกุล</label>
-                            <input type="password" class="form-control" id="inputPassword4" disabled="true">
+                            <label for="text" class="form-label">ชื่อ</label>
+                            <input type="text" class="form-control" id="inputEmail4" disabled="true" value="<?php echo $user[1]["name"] ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="text" class="form-label">นามสกุล</label>
+                            <input type="text" class="form-control" id="inputPassword4" disabled="true" value="<?php echo $user[1]["lastname"] ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="text" class="form-label">โทรศัพท์</label>
+                            <input type="text" class="form-control" id="inputPassword4" disabled="true" value="<?php echo $user[1]["phone"] ?>">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <hr>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <label for="text" class="form-label"><b>ที่อยู่</b></label>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress" class="form-label">เลขที่</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" disabled="true">
+                            <input type="text" class="form-control" id="inputAddress" disabled="true" value="<?php echo $user[1]["number"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress2" class="form-label">หมู่ที่</label>
-                            <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" disabled="true">
+                            <input type="text" class="form-control" id="inputAddress2" disabled="true" value="<?php echo $user[1]["moo"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress2" class="form-label">ถนน</label>
-                            <input type="text" class="form-control" id="inputAddress2" placeholder="Road" disabled="true">
+                            <input type="text" class="form-control" id="inputAddress2" disabled="true" value="<?php echo $user[1]["road"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputCity" class="form-label">ตำบล / แขวง</label>
                             <br>
-                            <select name="" id="" disabled="true">
-                                <option value="">...</option>
-                                <option value="">ตำบล</option>
-                                <option value="">แขวง</option>
-                            </select>
+                            <input type="text" class="form-control" id="inputAddress2" disabled="true" value="<?php echo $user[1]["TambonThai"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputState" class="form-label">อำเภอ / เขต</label>
                             <br>
-                            <select name="" id="" disabled="true">
-                                <option value="">...</option>
-                                <option value="">อำเภต</option>
-                                <option value="">เขต</option>
-                            </select>
+                            <input type="text" class="form-control" id="inputAddress2" disabled="true" value="<?php echo $user[1]["DistrictThai"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputState" class="form-label">จำหวัด</label>
                             <br>
-                            <select name="" id="" disabled="true">
-                                <option value="">...</option>
-                                <option value="">จังหวัด</option>
-                            </select>
+                            <input type="text" class="form-control" id="inputAddress2" disabled="true" value="<?php echo $user[1]["ProvinceThai"] ?>">
                         </div>
-                        <div class="col-md-2 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="inputZip" class="form-label">รหัสไปรษณีย์</label>
-                            <input type="text" class="form-control" id="inputZip" disabled="true">
+                            <input type="text" class="form-control" id="inputZip" disabled="true" value="<?php echo $user[1]["postcode"] ?>">
                         </div>
 
                     </form>

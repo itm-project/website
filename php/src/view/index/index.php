@@ -1,4 +1,12 @@
-<?php include_once("../layout/header.php") ?>
+<?php 
+session_start();
+
+include_once("../layout/header.php");
+
+include_once("../../../dbconnect.php");
+
+
+?>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
