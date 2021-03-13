@@ -75,7 +75,7 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
                                 <?php echo $travelHistory[$i]["time"] ?>
                             </th>
                             <th>
-                                <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#myModal">
+                                <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#openMap" >
                                     <span class="icon text-white-50">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </span>
@@ -105,7 +105,7 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
 
 
 <!-------Modal-------->
-<div class="modal fade" id="myModal">
+<div class="modal fade" id="openMap">
     <div class="modal-dialog modal-dialog-top modal-lg">
         <div class="modal-content">
 
@@ -117,13 +117,9 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
 
             <!-- Modal body -->
             <div class="modal-body">
-
-                <div id="map-container-google-2" class="z-depth-1-half map-container ">
-                    <iframe src="https://maps.google.com/maps?q=bangkok&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <div id="map" class="z-depth-1-half map-container ">
+                    <iframe width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
-
-
-
             </div>
 
             <!-- Modal footer -->

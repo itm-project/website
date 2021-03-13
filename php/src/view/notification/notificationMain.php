@@ -1,4 +1,7 @@
-<?php include_once("../layout/header.php") ?>
+<?php include_once("../layout/header.php");
+include_once("../../../dbconnect.php");
+include_once("./manage.php");
+?>
 
 <style>
     #outer {
@@ -15,7 +18,7 @@
 <div class="container-fluid">
     <div class="form-row">
         <div class="form-group col-md-6 d-flex align-items-center">
-        <a href="../index/index.php" class="btn btn-success btn-icon-split  ">
+            <a href="../index/index.php" class="btn btn-success btn-icon-split  ">
                 <i class="fa fa-arrow-left btn-sm">
                 </i>
             </a>
@@ -52,58 +55,47 @@
                                 หัวข้อ
                             </th>
                             <th>
-                                ลายละเอียด
+                                รายละเอียด
+                            </th>
+                            <th>
+                                วันที่
                             </th>
                             <th>
                                 อื่นๆ
                             </th>
                         </tr>
                         <tr>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="text">แก้ไข</span>
+                            <?php
+                            $notification = selectData(getAllNotification());
+                            for ($i = sizeof($notification) - 1; $i > 0; $i--) {
 
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">ลบ</span>
-                                </a>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="text">แก้ไข</span>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">ลบ</span>
-                                </a>
-                            </th>
-                        </tr>
+                            ?>
+                                <th>
+                                    <?php echo $notification[$i]["name"] ?>
+                                </th>
+                                <th>
+                                    <?php echo $notification[$i]["detail"] ?>
+                                </th>
+                                <th>
+                                    <?php echo $notification[$i]["date"] ?>
+                                </th>
+                                <th>
+                                    <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="text">แก้ไข</span>
 
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">ลบ</span>
+                                    </a>
+                                </th>
+                        </tr>
+                    <?php } ?>
                     </thead>
                 </table>
             </div>

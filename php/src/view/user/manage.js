@@ -1,14 +1,14 @@
 function submitForm() {
+    console.log("injss")
     $.ajax({
         type: "POST",
         url: "manage.php",
         cache: false,
         data: $('form#insertForm').serialize(),
         success: function (response) {
-            console.log(response)
-            $("#insertUser").html(response)
+            $("#insertUser").html(response);
             $("#insertModal").modal('hide');
-            location.reload();
+            //location.reload();
         },
         error: function () {
             alert("Error");
@@ -21,12 +21,16 @@ function editForm(){
         type: "POST",
         url: "manage.php",
         cache: false,
-        data: $('form#insertForm').serialize(),
+        data: $('form#editForm').serialize(),
         success: function (response) {
-            console.log(response)
-            $("#insertUser").html(response)
-            $("#insertModal").modal('hide');
-            location.reload();
+            if(response)
+            {
+                location.href = "./userProfile.php";
+            }
+            else
+            {
+                location.reload();
+            }
         },
         error: function () {
             alert("Error");
@@ -61,4 +65,11 @@ function load_data(type, id = '') {
             }
         }
     })
+}
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8,
+    });
 }

@@ -57,21 +57,23 @@ if (isset($_POST['data'])) {
     $user = $_POST['data'];
     $sql = "SELECT * FROM `address` WHERE `number`=$user[number] AND `moo`=$user[moo] AND `road`=$user[road] AND `sub-district`=$user[tambon] 
             AND `district`=$user[district] AND `province`=$user[province] AND `postcode`=$user[postcode]";
-    $isExist = selectData($sql);
-
-    if ($isExist[0]['numrow'] == 0) {
+    $isAddressExist = selectData($sql);
+    echo print_r($isAddressExist);
+    $sql = "SELECT * FROM WHERE `username`=$user[username]";
+    $isUsernameExist = selectData($sql);
+    echo print_r($isUsernameExist);
+    
+    if ($isAddressExist[0]['numrow'] == 0  && $isUsernameExist[0]['numrow'] == 0) {
         $sql = "INSERT INTO `address`(`number`, `moo`, `road`, `sub-district`, `district`, `province`, `postcode`) 
             VALUES ('$user[number]','$user[moo]','$user[road]','$user[tambon]','$user[district]','$user[province]','$user[postcode]')";
         $lastid = addinsertData($sql);
+
+        $sql = "INSERT INTO `user`( `name`, `lastname`, `phone`, `role`, `address`, `username`, `password`) 
+            VALUES ('$user[name]','$user[lastname]','$user[phone]','$user[role]','$lastid','$user[username]','$user[password]')";
+        $lastid = addinsertData($sql);
     } else {
-        $lastid = $isExist[1]['address_id'];
-    }
+        $lastid = $isAddressExist[1]['address_id'];
 
-    $sql = "SELECT * FROM WHERE `username`=$user[username]";
-    echo $sql;
-    $isExist = selectData($sql);
-
-    if ($isExist[0]['numrow'] == 0) {
         $sql = "INSERT INTO `user`( `name`, `lastname`, `phone`, `role`, `address`, `username`, `password`) 
             VALUES ('$user[name]','$user[lastname]','$user[phone]','$user[role]','$lastid','$user[username]','$user[password]')";
         $lastid = addinsertData($sql);
@@ -82,7 +84,6 @@ if (isset($_POST["province_id"])) {
     $province_id = $_POST['province_id'];
     $sql = "SELECT * FROM `district` WHERE `ProvinceID` = $province_id ORDER BY `DistrictID` ASC";
     $result = selectData($sql);
-    echo '<script>console.log('.'province='.$province_id.')</script>';
     if ($result[0]["numrow"] > 0) {
         echo '<option value="">เลือกอำเภอ/เขต</option>';
         for ($i = 1; $i < sizeof($result); $i++) {
@@ -95,7 +96,6 @@ if (isset($_POST["province_id"])) {
     $district_id = $_POST['district_id'];
     $sql = "SELECT * FROM `tambon` WHERE `DistrictID` = $district_id ORDER BY `TambonID` ASC";
     $result = selectData($sql);
-    echo '<script>console.log('.'district='.$district_id.')</script>';
     if ($result[0]["numrow"] > 0) {
         echo '<option value="">เลือกตำบล/เเขวง</option>';
         for ($i = 1; $i < sizeof($result); $i++) {
@@ -106,11 +106,19 @@ if (isset($_POST["province_id"])) {
     }
 }
 
-if(isset($_POST['delete_user'])){
-    $userid = $_POST['delete_user'];
+if(isset($_POST["delete_user"])){
+    $userid = $_POST["delete_user"];
     $sql = "DELETE FROM `user` WHERE `user_id`=$userid";
-    echo '<script>console.log('.$sql.')</script>';
-    $result = $conn->exec($sql);
+    echo '<script>console.log('.'user='.$userid.')</script>';
+    $myConDB = connectDB();
+    $stmt = $myConDB->prepare( $sql ); 
+    $stmt->execute();
+}
+
+if(isset($_POST['edit']))
+{
+    $user = $_POST['edit'];
+    
 }
 
 

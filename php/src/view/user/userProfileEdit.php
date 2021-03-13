@@ -63,29 +63,30 @@ $user = $_SESSION["user"];
                 </div>
                 <div class="col">
 
-                <form class="row g-3 mb-6">
+                <form class="row g-3 mb-6" id="editForm">
                         <div class="col-md-12 mb-3">
                             <label for="text" class="form-label"><b>ข้อมูลส่วนตัว</b></label>
                         </div>
+                        <input type="hidden" id="userid" name="edit[userid]" value="<?php echo $user[1]["user_id"] ?>">
                         <div class="col-md-6 mb-3">
                             <label for="text" class="form-label">ชื่อผู้ใช้งาน</label>
-                            <input type="text" class="form-control disable" id="inputEmail4" value="<?php echo $user[1]["username"] ?>">
+                            <input type="text" class="form-control disable" id="inputEmail4" name="edit[username]" value="<?php echo $user[1]["username"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="text" class="form-label">รหัสผ่าน</label>
-                            <input type="text" class="form-control" id="inputPassword4" value="<?php echo $user[1]["password"] ?>">
+                            <input type="text" class="form-control" id="inputPassword4" name="edit[password]" value="<?php echo $user[1]["password"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="text" class="form-label">ชื่อ</label>
-                            <input type="text" class="form-control" id="inputEmail4" value="<?php echo $user[1]["name"] ?>">
+                            <input type="text" class="form-control" id="inputEmail4" name="edit[name]" value="<?php echo $user[1]["name"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="text" class="form-label">นามสกุล</label>
-                            <input type="text" class="form-control" id="inputPassword4" value="<?php echo $user[1]["lastname"] ?>">
+                            <input type="text" class="form-control" id="inputPassword4" name="edit[lastname]" value="<?php echo $user[1]["lastname"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="text" class="form-label">โทรศัพท์</label>
-                            <input type="text" class="form-control" id="inputPassword4" value="<?php echo $user[1]["phone"] ?>">
+                            <input type="text" class="form-control" id="inputPassword4" name="edit[phone]" value="<?php echo $user[1]["phone"] ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                         </div>
@@ -97,21 +98,21 @@ $user = $_SESSION["user"];
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress" class="form-label">เลขที่</label>
-                            <input type="text" class="form-control" id="inputAddress" value="<?php echo $user[1]["number"] ?>">
+                            <input type="text" class="form-control" id="inputAddress" name="edit[number]" value="<?php echo $user[1]["number"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress2" class="form-label">หมู่ที่</label>
-                            <input type="text" class="form-control" id="inputAddress2" value="<?php echo $user[1]["moo"] ?>">
+                            <input type="text" class="form-control" id="inputAddress2" name="edit[moo]" value="<?php echo $user[1]["moo"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputAddress2" class="form-label">ถนน</label>
-                            <input type="text" class="form-control" id="inputAddress2" value="<?php echo $user[1]["road"] ?>">
+                            <input type="text" class="form-control" id="inputAddress2" name="edit[road]" value="<?php echo $user[1]["road"] ?>">
                         </div>
                         <div class="col-md-4 mb-3">
 
                         <label for="inputState" class="form-label">จำหวัด</label>
                         <br>
-                        <select name="data[province]" id="province" class="form-control input-lg" >
+                        <select name="edit[province]" id="province" class="form-control input-lg" >
                             <option value="<?php echo $user[1]["ProvinceID"] ;?>"><?php echo $user[1]["ProvinceThai"]; ?></option>
                             <?php
                             $province = selectData(getProvince());
@@ -132,20 +133,20 @@ $user = $_SESSION["user"];
                     <div class="col-md-4 mb-3">
                         <label for="inputState" class="form-label">อำเภอ / เขต</label>
                         <br>
-                        <select name="data[district]" id="district" class="form-control input-lg">
+                        <select name="edit[district]" id="district" class="form-control input-lg">
                             <option value="<?php echo $user[1]["DistrictID"] ?>"><?php echo $user[1]["DistrictThai"] ?></option>
                         </select>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label for="inputCity" class="form-label">ตำบล / แขวง</label>
                         <br>
-                        <select name="data[tambon]" id="sub_district" value="" class="form-control input-lg" data-live-search="true" title="Select Sub Category">
+                        <select name="edit[tambon]" id="sub_district" value="" class="form-control input-lg" data-live-search="true" title="Select Sub Category">
                             <option value="<?php echo $user[1]["TambonID"] ?>"><?php echo $user[1]["TambonThai"] ?></option>
                         </select>
                     </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputZip" class="form-label">รหัสไปรษณีย์</label>
-                            <input type="text" class="form-control" id="inputZip" value="<?php echo $user[1]["postcode"] ?>">
+                            <input type="text" class="form-control" id="inputZip" name="edit[postcode]" value="<?php echo $user[1]["postcode"] ?>">
                         </div>
 
                     </form>
@@ -158,9 +159,9 @@ $user = $_SESSION["user"];
                                 </a>
                             </div>
                             <div class="col">
-                                <a href="./userProfile.php" class="btn btn-warning ">
+                                <button type="submit" id="btn_edit" class="btn btn-warning ">
                                     <span class="text">แก้ไข</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -174,8 +175,8 @@ $user = $_SESSION["user"];
 <script src="./manage.js"></script>
 <script>
     $(document).ready(function() {
-        $("button#submit").click(function(event) {
-            submitForm();
+        $("button#btn_edit").click(function(event) {
+            editForm();
             return false;
         });
 

@@ -98,7 +98,7 @@ include_once("./manage.php");
                                                 </form>
                                             </div>
                                             <div class="col">
-                                                <a href="#deleteModal" class="btn btn-danger btn-icon-split" data-toggle="modal" data-userid="<?php echo $allUser[$i]["user_id"] ?>">
+                                                <a href="#deleteModal" class="btn btn-danger btn-icon-split" id="<?php echo "btnDelete_" + $allUser[$i]["user_id"]; ?>" data-toggle="modal" data-userid="<?php echo $allUser[$i]["user_id"] ?>">
                                                     <input type="hidden" name="user_id" value="">
                                                     <span class="icon text-white-50">
                                                         <i class="fas fa-trash"></i>
@@ -278,6 +278,7 @@ include_once("./manage.php");
         </div>
     </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="./manage.js"></script>
 <script>
@@ -289,24 +290,24 @@ include_once("./manage.php");
 
         $("#deleteModal").on('show.bs.modal', function(event) {
             var userID = $(event.relatedTarget).data('userid');
-            console.log(userID);
             if (userID) {
-                $.ajax({
-                    type: "POST",
-                    url: "manage.php",
-                    data: "delete_user=" + userID,
-                    success: function(response) {
-                        $
-                    }
-
+                $('#delete').click(function(event) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'manage.php',
+                        data: 'delete_user=' + userID,
+                        success: function(response) {
+                            $('#deleteModal').modal('hide');
+                            location.reload();
+                        }
+                    });
                 });
             }
-
         });
 
         $('#province').on('change', function() {
             var countryID = $(this).val();
-            
+
             if (countryID) {
                 $.ajax({
                     type: 'POST',

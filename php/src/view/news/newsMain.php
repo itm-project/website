@@ -1,4 +1,7 @@
-<?php include_once("../layout/header.php") ?>
+<?php include_once("../layout/header.php");
+include_once("../../../dbconnect.php");
+include_once("./manage.php");
+?>
 
 <style>
     #outer {
@@ -51,35 +54,45 @@
                                 หัวข้อ
                             </th>
                             <th>
-                                ลายละเอียด
+                                รายละเอียด
+                            </th>
+                            <th>
+                                วันที่
                             </th>
                             <th>
                                 อื่นๆ
                             </th>
                         </tr>
-                        <tr>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                ...
-                            </th>
-                            <th>
-                                <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="text">แก้ไข</span>
-                                </a>
-                                <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-trash"></i>
-                                    </span>
-                                    <span class="text">ลบ</span>
-                                </a>
-                            </th>
-                        </tr>
-
+                        <?php
+                        $news = selectData(getAllNews());
+                        for ($i = sizeof($news) - 1; $i > 0; $i--) {
+                        ?>
+                            <tr>
+                                <th>
+                                    <?php echo $news[$i]["name"] ?>
+                                </th>
+                                <th>
+                                    <?php echo $news[$i]["detail"] ?>
+                                </th>
+                                <th>
+                                    <?php echo $news[$i]["date"] ?>
+                                </th>
+                                <th>
+                                    <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="text">แก้ไข</span>
+                                    </a>
+                                    <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                                        <span class="text">ลบ</span>
+                                    </a>
+                                </th>
+                            </tr>
+                        <?php } ?>
                     </thead>
                 </table>
             </div>
@@ -112,15 +125,18 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <form>
-                    <div class="mb-3">
+                    <div class="col-md-12 mb-3">
+                        <label for="text" class="form-label"><b>ข้อมูล</b></label>
+                    </div>
+                    <div class="col-md-12 mb-3">
                         <label for="inputEmail4" class="form-label">หัวข้อ</label>
                         <input type="text" class="form-control" id="inputEmail4">
                     </div>
-                    <div class="mb-3">
+                    <div class="col-md-12 mb-3">
                         <label for="inputEmail4" class="form-label">ลายละเอียด</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="col-md-12 input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">รูปภาพหลัก</span>
                         </div>
@@ -129,7 +145,7 @@
                             <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="col-md-12 input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text">รูปภาพเพิ่มเติม</span>
                         </div>
@@ -138,6 +154,23 @@
                             <label class="custom-file-label multiple" for="inputGroupFile01">Choose file</label>
                         </div>
                     </div>
+                    <div class="col-md-12 mb-3">
+                        <hr>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="text" class="form-label"><b>การแจ้งเตือน</b></label>
+                    </div>
+                    
+                            <div class="col-md-12 mb-3">
+                                <label for="inputEmail4" class="form-label">หัวข้อ</label>
+                                <input type="text" class="form-control" id="inputEmail4">
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label for="inputEmail4" class="form-label">ลายละเอียด</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                            </div>
+                        
+
                 </form>
             </div>
 
