@@ -36,25 +36,30 @@ include_once("./manage.php");
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="form-row">
-                <div class="form-group col-md-10 d-flex align-items-center">
+            <div class="row g-2">
+                <div class="form-group col-md-7 d-flex align-items-center">
                     <h3 class="h3 mb-0 text-gray-800">ผู้ใช้งานทั้งหมด</h3>
                 </div>
-                <div class="form-group col-md d-flex align-items-center d-flex justify-content-end" id="insertUser">
-                    <button href="#" class="btn btn-primary align-left btn-icon-split" data-toggle="modal" data-target="#insertModal">
-                        <span class="icon text-white-50">
-                            <i class="fas fa-plus"></i>
-                        </span>
-                        <span class="text">เพิ่มผู้ใช้งาน</span>
-                    </button>
+                <div class="form-group col-md d-flex align-items-center justify-content-end">
+                    <div id="insertUser">
+                        <button href="#" class="btn btn-primary align-left btn-icon-split" data-toggle="modal" data-target="#insertModal">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span class="text">เพิ่มผู้ใช้งาน</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-hover">
+                <table class="table table-bordered DSA" id="userTable" width="100%" cellspacing="0"  >
                     <thead>
                         <tr>
+                            <th hidden="true">
+                                ID
+                            </th>
                             <th>
                                 ชื่อ
                             </th>
@@ -75,21 +80,24 @@ include_once("./manage.php");
 
                         for ($i = 1; $i < sizeof($allUser); $i++) { ?>
                             <tr>
-                                <th>
+                                <td hidden="true">
+                                    <?php echo $allUser[$i]["user_id"] ?>
+                                </td>
+                                <td>
                                     <?php echo $allUser[$i]["name"] ?>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <?php echo $allUser[$i]["lastname"] ?>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <?php echo $allUser[$i]["username"] ?>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div class="d-flex justify-content-start">
                                         <div class="row">
                                             <div class="col">
                                                 <form class="group" method="POST" action='./userProfile.php'>
-                                                    <button class="btn btn-success btn-icon-split" type="submit" id="use_id" name="user_id" value="<?php echo $allUser[$i]["user_id"] ?>">
+                                                    <button class="btn btn-success btn-icon-split" type="submit" id="user_id" name="user_id" value="<?php echo $allUser[$i]["user_id"] ?>">
                                                         <span class="icon text-white-50">
                                                             <i class="fa fa-address-book" aria-hidden="true"></i>
                                                         </span>
@@ -108,23 +116,12 @@ include_once("./manage.php");
                                             </div>
                                         </div>
                                     </div>
-                                </th>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div id="outer">
-        <div id="inner">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
         </div>
     </div>
 
@@ -297,17 +294,18 @@ include_once("./manage.php");
                         url: 'manage.php',
                         data: 'delete_user=' + userID,
                         success: function(response) {
+                            console.log(response)
                             $('#deleteModal').modal('hide');
                             location.reload();
                         }
                     });
                 });
             }
+
         });
 
         $('#province').on('change', function() {
             var countryID = $(this).val();
-
             if (countryID) {
                 $.ajax({
                     type: 'POST',

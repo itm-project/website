@@ -10,7 +10,15 @@ if (isset($_GET["error"])) {
     } else if ($_GET["error"] == 3) {
     ?>
         <script>
-            alert("username หรือ password ผิดพลาด")
+            
+            alert("กรอก username และ password ก่อนจ้า")
+        </script>
+<?php
+    }
+ else if ($_GET["error"] == 4) {
+    ?>
+        <script>
+            alert("คุณไม่มีสิทธิที่จะเข้าเว็บจ้าาาา >.<")
         </script>
 <?php
     }

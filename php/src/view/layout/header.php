@@ -20,6 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="../../../css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../lib/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="../../../lib/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -78,7 +79,7 @@
                     </div>
                 </div>
             </li>
-
+    
             <!-- Divider -->
             <hr class="sidebar-divider">
             <?php /*

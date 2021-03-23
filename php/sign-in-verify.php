@@ -13,13 +13,19 @@ if ($DATA[0]['numrow'] == 1) {
 
     $DATA = selectData($sql);
     
-
+    echo print_r($DATA);
     if (sizeof($DATA) == 2) {
 
-        $_SESSION[md5('userid')] = $DATA["user_id"];
-        $_SESSION[md5('user')] = $DATA;
-
-        header("location:./src/view/index/index.php");
+        if($DATA[1]["role"] == 1){
+            $_SESSION[md5('userid')] = $DATA["user_id"];
+            $_SESSION[md5('user')] = $DATA;
+            header("location:./src/view/index/index.php");
+        }
+        else 
+        {
+            header("location:index.php?error=4");
+        }
+        
     } else {
 
         header("location:index.php?error=2");

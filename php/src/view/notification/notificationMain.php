@@ -1,6 +1,7 @@
 <?php include_once("../layout/header.php");
 include_once("../../../dbconnect.php");
 include_once("./manage.php");
+date_default_timezone_set('Asia/Bangkok');
 ?>
 
 <style>
@@ -32,8 +33,8 @@ include_once("./manage.php");
     </div>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <div class="form-row">
-                <div class="form-group col-md-10 d-flex align-items-center">
+            <div class="row g-3">
+                <div class="form-group col-md-7 d-flex align-items-center">
                     <h3 class="h3 mb-0 text-gray-800">การแจ้งเตือนทั่วไป</h3>
                 </div>
                 <div class="form-group col-md d-flex align-items-center d-flex justify-content-end">
@@ -47,10 +48,13 @@ include_once("./manage.php");
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-hover">
+                <table class="table table-bordered" id="notiTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th hidden="true">
+                                ID
+                            </th>
                             <th>
                                 หัวข้อ
                             </th>
@@ -64,52 +68,54 @@ include_once("./manage.php");
                                 อื่นๆ
                             </th>
                         </tr>
+                    </thead>
+                    <tbody>
                         <tr>
                             <?php
                             $notification = selectData(getAllNotification());
-                            for ($i = sizeof($notification) - 1; $i > 0; $i--) {
+                            for ($i =  1; $i < sizeof($notification); $i++) {
 
                             ?>
-                                <th>
+                                <td hidden="true">
+                                    <?php echo $notification[$i]["noti_id"] ?>
+                                </td>
+                                <td>
                                     <?php echo $notification[$i]["name"] ?>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <?php echo $notification[$i]["detail"] ?>
-                                </th>
-                                <th>
-                                    <?php echo $notification[$i]["date"] ?>
-                                </th>
-                                <th>
-                                    <a href="#" class="btn btn-warning btn-icon-split" data-toggle="modal" data-target="#editModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="text">แก้ไข</span>
-
-                                    </a>
-                                    <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal">
-                                        <span class="icon text-white-50">
-                                            <i class="fas fa-trash"></i>
-                                        </span>
-                                        <span class="text">ลบ</span>
-                                    </a>
-                                </th>
+                                </td>
+                                <td>
+                                    <?php
+                                    echo date("H:i:s d/m/Y", $notification[$i]["date"]) ?>
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form class="group" method="POST" action='./notificationDetail.php'>
+                                                <button type="submit" class="btn btn-info btn-icon-split" id="noti_data" name="noti_data" value="<?php echo $notification[$i]["noti_id"] ?>">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    </span>
+                                                    <span class="text">รายละเอียด</span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-danger btn-icon-split" data-toggle="modal" data-target="#deleteModal" id="<?php echo "btnDelete_" + $notification[$i]["noti_id"]; ?>" data-notiid="<?php echo $notification[$i]["noti_id"] ?>">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                                <span class="text">ลบ</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
                         </tr>
                     <?php } ?>
-                    </thead>
+                    </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-    <div id="outer">
-        <div id="inner">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -126,67 +132,34 @@ include_once("./manage.php");
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form>
+                <form id="insertForm">
                     <div class="mb-3">
                         <label for="inputEmail4" class="form-label">หัวข้อ</label>
-                        <input type="text" class="form-control" id="inputEmail4">
+                        <input type="text" class="form-control" id="name" name="data[name]">
                     </div>
                     <div class="mb-3">
                         <label for="inputEmail4" class="form-label">ลายละเอียด</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <textarea class="form-control" id="detail" name="data[detail]" rows="5"></textarea>
                     </div>
+                    <input type="hidden" id="date" name="data[date]" value="<?php echo time(); ?>">
                 </form>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">เพิ่มการแจ้งเตือน</button>
+                <button type="submit" id="submit" name="submit" class="btn btn-primary" data-dismiss="modal">เพิ่มการแจ้งเตือน</button>
             </div>
 
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="editModal">
-    <div class="modal-dialog modal-dialog-top modal-lg">
-        <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">แก้ไขการแจ้งเตือน .....</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="inputEmail4" class="form-label">หัวข้อ</label>
-                            <input type="text" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputEmail4" class="form-label">ลายละเอียด</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">แก้ไข</button>
-            </div>
-
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="deleteModal">
     <div class="modal-dialog modal-dialog-top modal-md">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">ยืนยันการลบ</h4>
@@ -195,16 +168,80 @@ include_once("./manage.php");
 
             <!-- Modal body -->
             <div class="modal-body">
-                <span type="text">ท่านต้องการลบผู้ข่าว .... ใช่หรือไม่</span>
+                <span type="text">ท่านต้องการลบการแจ้งเตือนนี้ใช่หรือไม่</span>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">ยกเลิก</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">ยืนยัน</button>
+                <button type="submit" id="delete" name="delete" class="btn btn-danger" data-dismiss="modal">ยืนยัน</button>
             </div>
-
         </div>
     </div>
 </div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="./manage.js"></script>
+<script>
+    $(document).ready(function() {
+        $("button#submit").click(function(event) {
+            submitForm();
+            return false;
+        });
+
+        $("#deleteModal").on('show.bs.modal', function(event) {
+            var notiid = $(event.relatedTarget).data('notiid');
+            console.log(notiid);
+            if (notiid) {
+                $('#delete').click(function(event) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'manage.php',
+                        data: 'delete_noti=' + notiid,
+                        success: function(response) {
+                            console.log(response)
+                            $('#deleteModal').modal('hide');
+                            //location.reload();
+                        }
+                    });
+                });
+            }
+        });
+
+        $('#province').on('change', function() {
+            var countryID = $(this).val();
+
+            if (countryID) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'manage.php',
+                    data: 'province_id=' + countryID,
+                    success: function(html) {
+                        $('#district').html(html)
+                    }
+                });
+            } else {
+                $('#district').html('<option value"">เลือกจังหวัดก่อน</option>');
+                $('#sub_district').html('<option value"">เลือกอำเภอ/เขตก่อน</option>');
+            }
+        });
+
+        $('#district').on('change', function() {
+            var districtID = $(this).val();
+            if (districtID) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'manage.php',
+                    data: 'district_id=' + districtID,
+                    success: function(html) {
+                        $('#sub_district').html(html)
+                    }
+                });
+            } else {
+                $('#sub_district').html('<option value"">เลือกอำเภอ/เขตก่อน</option>')
+            }
+        });
+    });
+</script>
 <?php include_once("../layout/footer.php") ?>

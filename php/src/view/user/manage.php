@@ -1,4 +1,5 @@
 <?php
+
 include_once("../../../dbconnect.php");
 
 function request()
@@ -55,29 +56,31 @@ function getProvince()
 
 if (isset($_POST['data'])) {
     $user = $_POST['data'];
+    /*
     $sql = "SELECT * FROM `address` WHERE `number`=$user[number] AND `moo`=$user[moo] AND `road`=$user[road] AND `sub-district`=$user[tambon] 
             AND `district`=$user[district] AND `province`=$user[province] AND `postcode`=$user[postcode]";
     $isAddressExist = selectData($sql);
     echo print_r($isAddressExist);
-    $sql = "SELECT * FROM WHERE `username`=$user[username]";
+    $sql = "SELECT * FROM WHERE `username`='$user[username]'";
     $isUsernameExist = selectData($sql);
     echo print_r($isUsernameExist);
     
     if ($isAddressExist[0]['numrow'] == 0  && $isUsernameExist[0]['numrow'] == 0) {
-        $sql = "INSERT INTO `address`(`number`, `moo`, `road`, `sub-district`, `district`, `province`, `postcode`) 
-            VALUES ('$user[number]','$user[moo]','$user[road]','$user[tambon]','$user[district]','$user[province]','$user[postcode]')";
-        $lastid = addinsertData($sql);
-
-        $sql = "INSERT INTO `user`( `name`, `lastname`, `phone`, `role`, `address`, `username`, `password`) 
-            VALUES ('$user[name]','$user[lastname]','$user[phone]','$user[role]','$lastid','$user[username]','$user[password]')";
-        $lastid = addinsertData($sql);
+        
     } else {
         $lastid = $isAddressExist[1]['address_id'];
 
         $sql = "INSERT INTO `user`( `name`, `lastname`, `phone`, `role`, `address`, `username`, `password`) 
             VALUES ('$user[name]','$user[lastname]','$user[phone]','$user[role]','$lastid','$user[username]','$user[password]')";
         $lastid = addinsertData($sql);
-    }
+    }*/
+    $sql = "INSERT INTO `address`(`number`, `moo`, `road`, `sub-district`, `district`, `province`, `postcode`) 
+            VALUES ('$user[number]','$user[moo]','$user[road]','$user[tambon]','$user[district]','$user[province]','$user[postcode]')";
+    $lastid = addinsertData($sql);
+
+    $sql = "INSERT INTO `user`( `name`, `lastname`, `phone`, `role`, `address`, `username`, `password`) 
+            VALUES ('$user[name]','$user[lastname]','$user[phone]','$user[role]','$lastid','$user[username]','$user[password]')";
+    $lastid = addinsertData($sql);
 }
 
 if (isset($_POST["province_id"])) {
@@ -108,8 +111,18 @@ if (isset($_POST["province_id"])) {
 
 if(isset($_POST["delete_user"])){
     $userid = $_POST["delete_user"];
+    $user = selectData(getUser($userid));
+
+    echo print_r($user);
+    $address_id = $user[1]["address"];
+    $sql = "DELETE FROM `address` WHERE `address`.`address_id` = $address_id ";
+    echo $sql;
+    $myConDB = connectDB();
+    $stmt = $myConDB->prepare( $sql ); 
+    $stmt->execute();
+
     $sql = "DELETE FROM `user` WHERE `user_id`=$userid";
-    echo '<script>console.log('.'user='.$userid.')</script>';
+    echo $sql;
     $myConDB = connectDB();
     $stmt = $myConDB->prepare( $sql ); 
     $stmt->execute();
@@ -118,7 +131,14 @@ if(isset($_POST["delete_user"])){
 if(isset($_POST['edit']))
 {
     $user = $_POST['edit'];
-    
+
+    $sql = "UPDATE `user` SET `name`='$user[name]',`lastname`='$user[lastname]',`phone`='$user[phone]',
+            `username`='$user[username]',`password`='$user[password]' WHERE `user_id`='$user[userid]'";
+    $result = updateData($sql);
+
+    $sql = "UPDATE `address` SET `number`='$user[number]',`moo`='$user[moo]',`road`='$user[road]',`sub-district`='$user[tambon]',
+            `district`='$user[district]',`province`='$user[province]',`postcode`='$user[postcode]' WHERE `address_id`='$user[addressid]'";
+    $result = updateData($sql);
 }
 
 

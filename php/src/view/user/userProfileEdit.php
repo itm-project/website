@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once("../layout/header.php");
 include_once("../../../dbconnect.php");
@@ -63,7 +63,7 @@ $user = $_SESSION["user"];
                 </div>
                 <div class="col">
 
-                <form class="row g-3 mb-6" id="editForm">
+                    <form class="row g-3 mb-6" id="editForm">
                         <div class="col-md-12 mb-3">
                             <label for="text" class="form-label"><b>ข้อมูลส่วนตัว</b></label>
                         </div>
@@ -110,45 +110,46 @@ $user = $_SESSION["user"];
                         </div>
                         <div class="col-md-4 mb-3">
 
-                        <label for="inputState" class="form-label">จำหวัด</label>
-                        <br>
-                        <select name="edit[province]" id="province" class="form-control input-lg" >
-                            <option value="<?php echo $user[1]["ProvinceID"] ;?>"><?php echo $user[1]["ProvinceThai"]; ?></option>
-                            <?php
-                            $province = selectData(getProvince());
-                            if($province[0]["numrow"] > 0)
-                                for ($i = 1; $i < sizeof($province); $i++) {
-                                    
-                                    echo '<option value="'. $province[$i]["ProvinceID"] .'">'. $province[$i]["ProvinceThai"] .'</option>';
+                            <label for="inputState" class="form-label">จำหวัด</label>
+                            <br>
+                            <select name="edit[province]" id="province" class="form-control input-lg">
+                                <option value="<?php echo $user[1]["ProvinceID"]; ?>"><?php echo $user[1]["ProvinceThai"]; ?></option>
+                                <?php
+                                $province = selectData(getProvince());
+                                if ($province[0]["numrow"] > 0)
+                                    for ($i = 1; $i < sizeof($province); $i++) {
+
+                                        echo '<option value="' . $province[$i]["ProvinceID"] . '">' . $province[$i]["ProvinceThai"] . '</option>';
+                                    }
+                                else {
+                                    echo '<option value="">ไม่มีจังหวัดให้เลือก</option>';
                                 }
-                            else 
-                            {
-                                echo '<option value="">ไม่มีจังหวัดให้เลือก</option>';
-                            }
-                            
-                            
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="inputState" class="form-label">อำเภอ / เขต</label>
-                        <br>
-                        <select name="edit[district]" id="district" class="form-control input-lg">
-                            <option value="<?php echo $user[1]["DistrictID"] ?>"><?php echo $user[1]["DistrictThai"] ?></option>
-                        </select>
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="inputCity" class="form-label">ตำบล / แขวง</label>
-                        <br>
-                        <select name="edit[tambon]" id="sub_district" value="" class="form-control input-lg" data-live-search="true" title="Select Sub Category">
-                            <option value="<?php echo $user[1]["TambonID"] ?>"><?php echo $user[1]["TambonThai"] ?></option>
-                        </select>
-                    </div>
+
+
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="inputState" class="form-label">อำเภอ / เขต</label>
+                            <br>
+                            <select name="edit[district]" id="district" class="form-control input-lg">
+                                <option value="<?php echo $user[1]["DistrictID"] ?>"><?php echo $user[1]["DistrictThai"] ?></option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="inputCity" class="form-label">ตำบล / แขวง</label>
+                            <br>
+                            <select name="edit[tambon]" id="sub_district" value="" class="form-control input-lg" data-live-search="true" title="Select Sub Category">
+                                <option value="<?php echo $user[1]["TambonID"] ?>"><?php echo $user[1]["TambonThai"] ?></option>
+                            </select>
+                        </div>
                         <div class="col-md-4 mb-3">
                             <label for="inputZip" class="form-label">รหัสไปรษณีย์</label>
                             <input type="text" class="form-control" id="inputZip" name="edit[postcode]" value="<?php echo $user[1]["postcode"] ?>">
                         </div>
-
+                        <div class="col-md-6 mb-3">
+                            <input type="hidden" name="edit[addressid]" value="<?php echo $user[1]["address_id"] ?>">
+                        </div>
                     </form>
                     <hr>
                     <div class="d-flex justify-content-end">
@@ -182,7 +183,7 @@ $user = $_SESSION["user"];
 
         $('#province').on('change', function() {
             var countryID = $(this).val();
-            
+
             if (countryID) {
                 $.ajax({
                     type: 'POST',

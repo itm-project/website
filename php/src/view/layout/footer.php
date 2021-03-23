@@ -1,15 +1,13 @@
   <!-- Footer -->
-  <?php
-    /*
+  
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; Management Technology and Infomation (I think so xD)</span>
                     </div>
                 </div>
             </footer>
-            */
-    ?>
+          
   <!-- End of Footer -->
 
   </div>
@@ -41,14 +39,14 @@
           </div>
       </div>
   </div>
-
+  
   <!-- Bootstrap core JavaScript-->
   <script src="../../../lib/vendor/jquery/jquery.min.js"></script>
   <script src="../../../lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="../../../lib/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+ 
   <!-- Custom scripts for all pages-->
   <script src="../../../lib/js/sb-admin-2.min.js"></script>
 
@@ -56,11 +54,18 @@
   <script src="../../../lib/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../../../lib/js/demo/chart-area-demo.js"></script>
+  <script src="../../../lib/js/demo/chart-area-demo.js"></script> 
   <script src="../../../lib/js/demo/chart-pie-demo.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="../../../lib/vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="../../../lib/vendor/bootstrap/js/bootstrap.js"></script>
+  
+  <!--Table -->
+  <script src="../../../lib/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="../../../lib/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+
   </body>
 
   </html>

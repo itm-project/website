@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include_once("../layout/header.php");
 include_once("../../../dbconnect.php");
@@ -51,9 +51,12 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="travelTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th hidden="true">
+                                id
+                            </th>
                             <th>
                                 สถานที่
                             </th>
@@ -64,28 +67,44 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
                                 ลายละเอียดอื่นๆ
                             </th>
                         </tr>
-                        <?php 
-                            for($i=1;$i<sizeof($travelHistory);$i++){
+                    </thead>
+                    <tbody>
+                        <?php
+                        for ($i = 1; $i < sizeof($travelHistory); $i++) {
                         ?>
-                        <tr>
-                            <th>
-                                <?php echo $travelHistory[$i]["name"] ?>
-                            </th>
-                            <th>
-                                <?php echo $travelHistory[$i]["time"] ?>
-                            </th>
-                            <th>
-                                <a href="#" class="btn btn-success btn-icon-split" data-toggle="modal" data-target="#openMap" >
-                                    <span class="icon text-white-50">
-                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                    </span>
-                                    <span class="text">ดูแผนที่</span>
-                                </a>
-                            </th>
-                        </tr>
+                            <tr>
+                                <td hidden="true">
+                                    <?php echo $travelHistory[$i]["travel_id"] ?>
+                                </td>
+                                <td>
+                                    <?php 
+                                        if($travelHistory[$i]["name"] == null){
+                                            echo "ไม่รู้จัก";
+                                        }
+                                        else{
+                                            echo $travelHistory[$i]["name"];
+                                        }
+                                    ?>
+                                   
+                                </td>
+                                <td>
+                                    <?php echo $travelHistory[$i]["time"] ?>
+                                </td>
+                                <td>
+                                    <form class="group" method="POST" action='./travelHistoryDetail.php'>
+                                        <button class="btn btn-success btn-icon-split" type="submit" id="map_detail" name="map_detail" value="<?php echo $travelHistory[$i]["travel_id"] ?>">
+                                            <span class="icon text-white-50">
+                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                            <span class="text">ดูแผนที่</span>
+                                        </button>
+                                    </form>
+
+                                </td>
+                            </tr>
                         <?php } ?>
 
-                    </thead>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -117,8 +136,8 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div id="map" class="z-depth-1-half map-container ">
-                    <iframe width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <div class="z-depth-1-half map-container ">
+                    <iframe id="map" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                 </div>
             </div>
 
@@ -130,6 +149,27 @@ $travelHistory = selectData(getTravelHistory($user[1]["user_id"]));
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script src="./manage.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#openMap").on('show.bs.modal', function(event) {
+            var data = $(event.relatedTarget).data('genMap');
+            console.log(data)
+            $("button#genMap").click(function(event) {
+                initMap(data);
+                return false;
+            });
+        });
+
+        $('#travelTable').DataTable({
+            "order": [
+                [0, "desc"]
+            ]
+        });
+    });
+</script>
 
 
 <?php include_once("../layout/footer.php") ?>

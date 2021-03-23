@@ -2,8 +2,8 @@
 <?php
 
 function connectDB(){
-
 	$servername = "localhost";
+	//$servername = "158.108.213.134";
 	$username = "root";
 	$password = "";
 	
@@ -13,12 +13,11 @@ function connectDB(){
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=itmproject;charset=utf8", $username, $password);
-
+		
     		// $conn = new PDO("mysql:host=$servername;dbname=palmWeb2561;charset=utf8", $username, $password);
     		// set the PDO error mode to exception
     		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		//$conn->setAttribute(PDO::SQLSRV_ATTR_ENCODING, PDO::SQLSRV_ENCODING_UTF8);
-    		//echo "Connected successfully";
 		return $conn; 
 	}
 	catch(PDOException $e){
